@@ -1,0 +1,50 @@
+Index of cpu-performance
+
+02 Dec 1996      122 Index
+15 May 1990     2903 machine.names
+30 May 1989     8726 machine.data
+
+
+def pre_processing():
+    pass
+
+def z_score():
+    # scaled value = value - mean / std
+    df = fcpu()
+    z_scaled = df.copy()
+
+    for column in z_scaled.columns[2:]:
+        z_scaled[column] = (z_scaled[column] - z_scaled[column].mean()) / z_scaled[column].std()
+
+    print(z_scaled)
+    z_scaled.plot(kind="box")
+    plt.show()
+
+def min_max():
+    # scaled value = value - mean / std
+    df = fcpu()
+    scaled = df.copy()
+
+    for column in scaled.columns[2:]:
+        scaled[column] = (scaled[column] - scaled[column].min()) / (scaled[column].max() - scaled[column].min())
+
+    print(scaled)
+    scaled.plot(kind="box")
+    plt.show()
+
+def max_abs_scaling():
+    df = fcpu()
+    max_scaled = df.copy()
+
+    for column in max_scaled.columns[2:]:
+        max_scaled[column] = max_scaled[column] / max_scaled[column].abs().max()
+
+    print(max_scaled)
+    max_scaled.plot(kind="box")
+    plt.show()
+
+
+if __name__ == "__main__":
+    fcpu()
+    z_score()
+    
